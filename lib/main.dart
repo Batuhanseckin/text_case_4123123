@@ -10,7 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await loadEnvironments();
   await LocatorInjector.setUpLocator();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 Future<void> loadEnvironments() async {

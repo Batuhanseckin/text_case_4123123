@@ -2,11 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:text_case_4123123/blocks/cities/cities_bloc.dart';
-import 'package:text_case_4123123/views/cities/cities_view.dart';
+
+import 'blocks/cities/cities_bloc.dart';
+import 'core/router/app_router.gr.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +20,14 @@ class MyApp extends StatelessWidget {
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 667),
-        builder: (context, child) => MaterialApp(
+        builder: (context, child) => MaterialApp.router(
+          routerDelegate: _appRouter.delegate(),
+          routeInformationParser: _appRouter.defaultRouteParser(),
           debugShowCheckedModeBanner: kDebugMode,
           title: 'Flutter Demo',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: const CitiesView(),
         ),
       ),
     );
