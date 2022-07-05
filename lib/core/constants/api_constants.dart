@@ -3,5 +3,5 @@ class ApiConstants {
   static String baseUrl = "";
 
   // Endpoints
-  static String getAllCountries = "";
+  static String getAllCountries = "countries/population/cities";
 }
