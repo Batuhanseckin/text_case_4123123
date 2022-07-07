@@ -35,6 +35,8 @@ class _CitiesMobileState extends State<_CitiesMobile> {
             return _buildLoading;
           } else if (state is GetAllCitiesLoadedState) {
             return _buildLoaded(state.cities);
+          } else if (state is FilterDataFinishedState) {
+            return _buildLoaded(state.cities);
           } else if (state is GetAllCitiesErrorState) {
             return _buildError;
           }
@@ -54,8 +56,18 @@ class _CitiesMobileState extends State<_CitiesMobile> {
             SizedBox(height: 40.h),
             _buildTitle,
             SizedBox(height: 10.h),
+            _buildSearch,
+            SizedBox(height: 10.h),
             _buildCities(items),
           ],
+        ),
+      );
+
+  Widget get _buildSearch => TextFormField(
+        onChanged: (value) => widget.citiesBloc.add(FilterCitiesEvent(value)),
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          prefixIcon: Icon(Icons.search),
         ),
       );
 
@@ -71,7 +83,7 @@ class _CitiesMobileState extends State<_CitiesMobile> {
             return CityItem(cityModel: items[index]);
           },
           separatorBuilder: (c, i) => const SizedBox(height: 2),
-          itemCount: 20,
+          itemCount: items.length > 20 ? 20 : items.length,
         ),
       );
 }

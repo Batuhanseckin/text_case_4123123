@@ -13,23 +13,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider<CitiesBloc>(
-          create: (BuildContext context) => CitiesBloc(),
-        ),
-      ],
+      providers: _getProviders,
       child: ScreenUtilInit(
         designSize: const Size(375, 667),
-        builder: (context, child) => MaterialApp.router(
-          routerDelegate: _appRouter.delegate(),
-          routeInformationParser: _appRouter.defaultRouteParser(),
-          debugShowCheckedModeBanner: kDebugMode,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-        ),
+        builder: (context, child) => _buildMaterialAppRouter,
       ),
     );
   }
+
+  List<BlocProvider> get _getProviders => [
+        BlocProvider<CitiesBloc>(
+          create: (BuildContext context) => CitiesBloc(),
+        ),
+      ];
+
+  Widget get _buildMaterialAppRouter => MaterialApp.router(
+        routerDelegate: _appRouter.delegate(),
+        routeInformationParser: _appRouter.defaultRouteParser(),
+        debugShowCheckedModeBanner: kDebugMode,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+      );
 }

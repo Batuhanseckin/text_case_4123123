@@ -5,6 +5,7 @@ abstract class CitiesState extends Equatable {
   const CitiesState();
 }
 
+// Get All Cities States
 class GetAllCitiesInitialState extends CitiesState {
   @override
   List<Object> get props => [];
@@ -27,4 +28,13 @@ class GetAllCitiesLoadedState extends CitiesState {
 
   @override
   List<Object> get props => [cities];
+}
+
+// Search Data States
+class FilterDataFinishedState extends CitiesState {
+  final List<CityModel> cities;
+
+  const FilterDataFinishedState(this.cities);
+  @override
+  List<Object?> get props => [cities];
 }
