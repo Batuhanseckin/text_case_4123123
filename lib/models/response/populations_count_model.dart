@@ -18,14 +18,14 @@ class PopulationCountsModel {
     this.reliabilty,
   });
 
-  String? year;
-  String? value;
+  int? year;
+  double? value;
   String? sex;
   String? reliabilty;
 
   PopulationCountsModel copyWith({
-    String? year,
-    String? value,
+    int? year,
+    double? value,
     String? sex,
     String? reliabilty,
   }) =>
@@ -39,7 +39,7 @@ class PopulationCountsModel {
   factory PopulationCountsModel.fromJson(Map<String, dynamic> json) =>
       PopulationCountsModel(
         year: json["year"],
-        value: json["value"],
+        value: json["value"].toDouble(),
         sex: json["sex"],
         reliabilty: json["reliabilty"],
       );

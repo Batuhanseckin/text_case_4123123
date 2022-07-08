@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:text_case_4123123/blocks/cities/cities.dart';
+import 'package:text_case_4123123/blocs/cities/cities.dart';
 import 'package:text_case_4123123/models/response/city_model.dart';
 import 'package:text_case_4123123/widgets/item/city_item.dart';
+
+import '../../widgets/text_field/city_search_text_field.dart';
 
 part 'cities_mobile.dart';
 part 'cities_desktop.dart';

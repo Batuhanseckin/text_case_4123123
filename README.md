@@ -1,16 +1,35 @@
-# text_case_4123123
+# test-case_4123123
 
-A new Flutter project.
+### Clone the project
 
-## Getting Started
+```bash
+  git clone https://github.com/Batuhanseckin/text_case_4123123
+```
 
-This project is a starting point for a Flutter application.
+### Go to the project directory
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+  cd text_case_4123123
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+### Install dependencies
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+  flutter pub get
+```
+
+### Run project
+
+```bash
+  fvm flutter run --debug (for test environment)
+  fvm flutter run --profile (for stage environment)
+  fvm flutter run --release (for production environment)
+```
+
+### Build project
+
+```bash
+  fvm flutter build --debug (for test environment)
+  fvm flutter build --profile (for stage environment)
+  fvm flutter build --release (for production environment)
+```

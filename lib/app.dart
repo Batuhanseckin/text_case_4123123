@@ -2,8 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:text_case_4123123/blocs/city_detail/city_detail.dart';
 
-import 'blocks/cities/cities_bloc.dart';
+import 'blocs/cities/cities_bloc.dart';
 import 'core/router/app_router.gr.dart';
 
 class MyApp extends StatelessWidget {
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
   List<BlocProvider> get _getProviders => [
         BlocProvider<CitiesBloc>(
           create: (BuildContext context) => CitiesBloc(),
+        ),
+        BlocProvider<CityDetailBloc>(
+          create: (BuildContext context) => CityDetailBloc(),
         ),
       ];
 

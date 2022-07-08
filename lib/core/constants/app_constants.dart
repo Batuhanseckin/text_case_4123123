@@ -4,4 +4,7 @@ class AppConstants {
   static String testEnv = "test.env";
   static String stageEnv = "stage.env";
   static String prodEnv = "prod.env";
+
+  // Hero Tags
+  static String cityImageHeroTag = "cityImageHeroTag";
 }

@@ -10,9 +10,9 @@ class GetAllCitiesEvent extends CitiesEvent {
 }
 
 class FilterCitiesEvent extends CitiesEvent {
-  final String filterData;
+  final String filterString;
 
-  const FilterCitiesEvent(this.filterData);
+  const FilterCitiesEvent(this.filterString);
   @override
-  List<Object> get props => [filterData];
+  List<Object> get props => [filterString];
 }

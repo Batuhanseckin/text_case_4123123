@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:text_case_4123123/blocks/cities/cities_event.dart';
-import 'package:text_case_4123123/blocks/cities/cities_state.dart';
+import 'package:text_case_4123123/blocs/cities/cities_event.dart';
+import 'package:text_case_4123123/blocs/cities/cities_state.dart';
 import 'package:text_case_4123123/core/router/app_router.gr.dart';
 import 'package:text_case_4123123/models/response/base_model.dart';
 import 'package:text_case_4123123/models/response/city_model.dart';
@@ -15,6 +15,7 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
   CitiesRepository loginRepository = locator<CitiesRepository>();
   late List<CityModel> cities;
   late List<CityModel> backUpCities;
+  late int selectedCityIndex;
 
   CitiesBloc() : super(GetAllCitiesInitialState());
 
@@ -22,8 +23,8 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
   Stream<CitiesState> mapEventToState(CitiesEvent event) async* {
     if (event is GetAllCitiesEvent) {
       yield GetAllCitiesLoadingState();
-      final BaseModel baseModel = await loginRepository.getAllCities();
-      if (baseModel.error != null && baseModel.error!) {
+      final BaseModel? baseModel = await loginRepository.getAllCities();
+      if (baseModel == null || baseModel.error == null || baseModel.error!) {
         yield GetAllCitiesErrorState();
       } else {
         cities =
@@ -32,20 +33,31 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
         yield GetAllCitiesLoadedState(cities);
       }
     } else if (event is FilterCitiesEvent) {
-      cities = backUpCities
-          .where(
-            (x) => x.city == null
-                ? false
-                : x.city!
-                    .toLowerCase()
-                    .contains(event.filterData.toLowerCase()),
-          )
-          .toList();
+      filterCities(event.filterString);
       yield FilterDataFinishedState(cities);
     }
   }
 
-  onTapCityItem(BuildContext context) {
+  void filterCities(String filterString) {
+    cities = backUpCities
+        .where(
+          (x) => x.city == null
+              ? false
+              : x.city!.toLowerCase().contains(filterString.toLowerCase()),
+        )
+        .toList();
+  }
+
+  onTapCityItem(BuildContext context, int index) {
+    selectedCityIndex = index;
     context.router.push(const CityDetailView());
   }
+}
+
+/// Sample linear data type.
+class PopulationModel {
+  final String year;
+  final int population;
+
+  PopulationModel(this.year, this.population);
 }

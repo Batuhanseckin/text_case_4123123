@@ -36,7 +36,7 @@ class _CitiesMobileState extends State<_CitiesMobile> {
           } else if (state is GetAllCitiesLoadedState) {
             return _buildLoaded(state.cities);
           } else if (state is FilterDataFinishedState) {
-            return _buildLoaded(state.cities);
+            return _buildSearched(state.cities);
           } else if (state is GetAllCitiesErrorState) {
             return _buildError;
           }
@@ -47,6 +47,8 @@ class _CitiesMobileState extends State<_CitiesMobile> {
   Widget get _buildLoading => const Center(child: CircularProgressIndicator());
 
   Widget get _buildError => const Center(child: Text("Error Widget here"));
+
+  Widget _buildSearched(List<CityModel> items) => _buildLoaded(items);
 
   Widget _buildLoaded(List<CityModel> items) => Container(
         padding: const EdgeInsets.all(20),
@@ -63,14 +65,9 @@ class _CitiesMobileState extends State<_CitiesMobile> {
         ),
       );
 
-  Widget get _buildSearch => TextFormField(
+  Widget get _buildSearch => CitySearchTextField(
         onChanged: (value) => widget.citiesBloc.add(FilterCitiesEvent(value)),
-        decoration: const InputDecoration(
-          border: OutlineInputBorder(),
-          prefixIcon: Icon(Icons.search),
-        ),
       );
-
   Widget get _buildTitle => Text(
         "Şehirler",
         style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
@@ -80,7 +77,12 @@ class _CitiesMobileState extends State<_CitiesMobile> {
         child: ListView.separated(
           padding: EdgeInsets.zero,
           itemBuilder: (context, index) {
-            return CityItem(cityModel: items[index]);
+            return CityItem(
+              cityModel: items[index],
+              onTap: () {
+                widget.citiesBloc.onTapCityItem(context, index);
+              },
+            );
           },
           separatorBuilder: (c, i) => const SizedBox(height: 2),
           itemCount: items.length > 20 ? 20 : items.length,
